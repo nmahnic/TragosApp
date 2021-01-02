@@ -5,8 +5,8 @@ import com.tragosapp.data.model.Drink
 import com.tragosapp.vo.Resource
 
 class RepoImpl(private val dataSource: DataSource) : Repo {
-    override fun getTragosList(): Resource<List<Drink>> {
-        return dataSource.getTragosList()
+    override suspend fun getTragosList(tragoName : String): Resource<List<Drink>> {
+        return dataSource.getTragoByName(tragoName)
     }
 
 
