@@ -31,7 +31,7 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         super.onCreate(savedInstanceState)
     }
 
-    // HOla comentario importante
+    // ya esta
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
