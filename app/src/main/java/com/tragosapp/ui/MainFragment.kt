@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tragosapp.AppDatabase
 import com.tragosapp.vo.Resource
 import com.tragosapp.R
 import com.tragosapp.data.DataSource
@@ -25,7 +26,17 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
 
     //Inyeccion de dependencia esto se hace mas facil con Dagger
-    private val viewModel by viewModels<MainViewModel> { VMFactory(RepoImpl(DataSource())) }
+    private val viewModel by viewModels<MainViewModel> {
+        VMFactory(
+            RepoImpl(
+                DataSource(
+                    AppDatabase.getDatabase(
+                        requireActivity().applicationContext
+                    )
+                )
+            )
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +54,12 @@ class MainFragment : Fragment(), MainAdapter.OnTragoClickListener {
         setupRecyclerView()
         setupSearchView()
         setupObservers()
+        btn_ir_favoritos.setOnClickListener{
+            findNavController().navigate(R.id.action_mainFragment_to_favoritosFragment)
+        }
     }
 
-    private fun setupObservers(){
+    private fun setupObservers() {
         viewModel.fetchTragosList.observe(viewLifecycleOwner, Observer { result ->
             when (result) {
                 is Resource.Loading -> {
