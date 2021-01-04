@@ -20,4 +20,8 @@ class DataSource(private val appDatabase: AppDatabase) {
     suspend fun insertTragoIntoRoom(trago: DrinkEntity){
         appDatabase.tragoDao().insertFavorite(trago)
     }
+
+    suspend fun deleteTrago(trago: DrinkEntity){
+        appDatabase.tragoDao().deleteDrink(trago)
+    }
 }

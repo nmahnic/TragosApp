@@ -19,7 +19,7 @@ class MainAdapter(
 ) : RecyclerView.Adapter<BaseViewHolder<*>>() {
 
     interface OnTragoClickListener {
-        fun onTragoClick(drink: Drink)
+        fun onTragoClick(drink: Drink, position: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
@@ -41,7 +41,7 @@ class MainAdapter(
             Glide.with(context).load(item.image).centerCrop().into(itemView.img_trago)
             itemView.txt_titulo.text = item.nombre
             itemView.txt_description.text = item.descripcion
-            itemView.setOnClickListener { itemClickListener.onTragoClick(item) }
+            itemView.setOnClickListener { itemClickListener.onTragoClick(item, position) }
         }
 
     }
